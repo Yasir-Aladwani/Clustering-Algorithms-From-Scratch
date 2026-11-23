@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/clustering_algorithms_from_scratch._banner" alt="Clustering Algorithms from Scratch" width="100%">
+  <img src="assets/clustering_algorithms_from_scratch._banner.png" alt="Clustering Algorithms from Scratch" width="100%">
 </div>
 
 # Clustering Algorithms from Scratch
