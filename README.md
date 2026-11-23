@@ -1,122 +1,81 @@
+<div align="center">
+  <img src="assets/clustering_algorithms_from_scratch._banner" alt="Clustering Algorithms from Scratch" width="100%">
+</div>
+
 # Clustering Algorithms from Scratch
 
-## Project Overview
-
-This project implements two popular unsupervised learning algorithms **from scratch** to understand how clustering works internally.
-
-The goal of the project is to explore how clustering algorithms behave on datasets with different shapes and structures.
-
-The algorithms implemented in this project are:
-
-* **K-Means**
-* **DBSCAN**
-
-The project also visualizes clustering results and evaluates the performance of each algorithm using multiple metrics.
-
----
+How does the shape of a dataset affect the clusters an algorithm finds? This project implements **K-Means** and **DBSCAN** from scratch in Python and compares them on four synthetic datasets, from well-separated blobs to interleaving moons and nested circles.
 
 ## Datasets
 
-To test the algorithms, several synthetic datasets were generated using `scikit-learn`.
+The datasets are generated with `scikit-learn`. Each highlights a different clustering challenge.
 
-The datasets include:
-
-* **Blobs** – well-separated spherical clusters
-* **Anisotropic clusters** – stretched clusters with different orientations
-* **Noisy Moons** – non-linear curved clusters
-* **Noisy Circles** – circular clusters with noise
-
-These datasets help illustrate how different clustering algorithms behave under different data structures.
-
----
+| Dataset | Structure | What it tests |
+| --- | --- | --- |
+| **Blobs** | Compact, well-separated groups | Whether the algorithms recover clearly separated clusters |
+| **Anisotropic Clusters** | Stretched groups with different orientations | How elongated shapes affect cluster assignments |
+| **Noisy Moons** | Two interleaving half-moons with noise | Whether the algorithms can follow curved boundaries |
+| **Noisy Circles** | Two concentric rings with noise | Whether the algorithms can separate groups that share a center |
 
 ## Implemented Algorithms
 
-### K-Means (From Scratch)
+### K-Means
 
-K-Means is a centroid-based clustering algorithm that works by:
+K-Means assigns each point to the cluster with the nearest centroid. The implementation follows these steps:
 
-1. Randomly initializing cluster centroids
-2. Assigning each point to the nearest centroid
-3. Updating centroids based on the mean of assigned points
-4. Repeating until convergence
+1. Randomly initialize `k` centroids.
+2. Assign each data point to its nearest centroid.
+3. Update each centroid to the mean of its assigned points.
+4. Repeat the assignment and update steps until convergence.
 
-The **Elbow Method** is also used to estimate a suitable number of clusters.
+The project also uses the **Elbow Method** to explore possible values of `k`. The elbow plot shows where adding another cluster starts to yield a smaller reduction in the within-cluster sum of squares.
 
----
+### DBSCAN
 
-### DBSCAN (From Scratch)
+DBSCAN (*Density-Based Spatial Clustering of Applications with Noise*) builds clusters by connecting dense neighborhoods. Two parameters control how clusters form:
 
-DBSCAN is a density-based clustering algorithm that groups points based on density rather than distance to centroids.
+| Parameter | Role |
+| --- | --- |
+| `eps` | The maximum distance for two points to be considered neighbors |
+| `min_samples` | The minimum number of points in a neighborhood, including the point itself, for it to qualify as a core point |
 
-Key advantages of DBSCAN:
-
-* Detects clusters of **arbitrary shapes**
-* Identifies **noise points**
-* Does **not require specifying the number of clusters**
-
----
+DBSCAN expands clusters through connected core points and includes nearby border points. Points outside these clusters are labeled as **noise**. This allows the algorithm to discover irregular shapes without specifying the number of clusters in advance.
 
 ## Visualization
 
-The project visualizes:
+The project visualizes the original datasets, the cluster assignments produced by each algorithm, and the K-Means elbow plots.
 
-* The original datasets
-* Clustering results for **K-Means**
-* Clustering results for **DBSCAN**
-* Elbow method plots
-
-These visualizations help compare how each algorithm performs on different dataset structures.
-
----
+The **Noisy Circles** dataset is a useful place to see the difference. Both rings share a center, so proximity to a centroid cannot separate the inner ring from the outer one. With suitable density parameters, DBSCAN can follow each ring as a separate cluster.
 
 ## Evaluation Metrics
 
-To compare the clustering performance, the following metrics are used:
+The predicted clusters are compared with the known labels of the synthetic datasets using three metrics:
 
-* **F-Measure**
-* **Normalized Mutual Information (NMI)**
-* **Rand Score**
-
-These metrics measure how well the predicted clusters match the true labels of the datasets.
-
----
+| Metric | What it measures |
+| --- | --- |
+| **F-Measure** | Combines precision and recall into a single score |
+| **Normalized Mutual Information (NMI)** | Measures how much information the predicted clusters share with the true labels, regardless of cluster numbering |
+| **Rand Score** | Measures the fraction of point pairs that both partitions group together or both keep apart |
 
 ## Technologies Used
 
-* Python
-* NumPy
-* pandas
-* scikit-learn
-* matplotlib
-
----
+**Python** · **NumPy** · **pandas** · **scikit-learn** · **Matplotlib**
 
 ## Key Learning Outcomes
 
-This project demonstrates:
-
-* How clustering algorithms work internally
-* Differences between centroid-based and density-based clustering
-* How dataset structure affects clustering performance
-* How to evaluate clustering results using multiple metrics
-
----
+- Implement the assignment and update steps that drive K-Means.
+- Understand how core points, border points, and noise shape DBSCAN clusters.
+- Explain why dataset geometry matters when choosing a clustering algorithm.
+- Interpret clustering plots alongside scores computed from known labels.
 
 ## Future Improvements
 
-Possible improvements include:
-
-* Comparing results with **scikit-learn built-in implementations**
-* Adding **Silhouette Score analysis**
-* Testing on **real-world datasets**
-* Implementing additional clustering algorithms such as **Hierarchical Clustering**
-
----
+- Compare both implementations with their `scikit-learn` counterparts.
+- Add **Silhouette Score** to evaluate cluster separation without ground-truth labels.
+- Test both algorithms on real-world datasets.
+- Implement **Hierarchical Clustering** and compare it with K-Means and DBSCAN.
 
 ## Author
 
-**Yasir Abdullah Al-Adwani**
-
-Artificial Intelligence Graduate
-
+**Yasir Abdullah Al-Adwani**  
+Artificial Intelligence Graduate · [GitHub](https://github.com/Yasir-Aladwani)
